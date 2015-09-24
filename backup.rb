@@ -31,8 +31,10 @@ def backup
       ddirs = dir.split('/')
       ddirs.each do |ddir|
         savedir << (ddir + '/')
-        Dir.mkdir(savedir)
-        puts ' Created dir ' + savedir
+        unless Dir.exists?(savedir)
+          Dir.mkdir(savedir) 
+          puts ' Created dir ' + savedir
+        end
       end
     end
 
@@ -43,6 +45,7 @@ def backup
   end
 end
 
+# main loop
 loop do
   backup
   puts 'Backup completed at ' + Time.now.strftime('%A, %d %b %Y %l:%M %p')
